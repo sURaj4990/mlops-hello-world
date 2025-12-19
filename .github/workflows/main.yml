@@ -1,0 +1,32 @@
+name: MLOps Pipeline
+
+on: [push]
+
+jobs:
+  build-and-train:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install uv package manager
+      uses: actions/setup-uv@v4
+      with:
+        enable-cache: true
+        cache-dependency-global: "uv.lock"
+
+    - name: Set up python
+      run: uv python install 3.13.9
+
+    - name: Sync dependencies
+      run: uv sync 
+
+    - name: Train model 
+      run: |
+        uv run train.py
+
+    - name: Run test
+      run: | 
+        pytest test_model.py 
+        
