@@ -22,6 +22,10 @@ jobs:
     - name: Sync dependencies
       run: uv sync 
 
+    - name: Train model 
+      run: |
+        uv run train.py
+
     - name: Run test
       run: | 
         pytest test_model.py 

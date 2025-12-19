@@ -7,8 +7,8 @@ def test_model_accuracy():
     url = "https://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-white.csv"
     df = pd.read_csv(url, sep=";")
 
-    X = df.drop("quality")
-    y = (df["quality"]).astype(int)
+    X = df.drop("quality", axis=1)
+    y = (df["quality"] > 5).astype(int)
 
     _, X_test, _, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
